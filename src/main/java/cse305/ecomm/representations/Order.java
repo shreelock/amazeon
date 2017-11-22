@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class Order {
     @NotNull
-    private Integer orderId ;
+    private Integer orderId;
     @NotNull
     private Integer customerId;
     @NotNull
