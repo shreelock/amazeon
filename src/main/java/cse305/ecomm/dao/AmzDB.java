@@ -1,11 +1,12 @@
 package cse305.ecomm.dao;
 
+import cse305.ecomm.representations.Address;
+
 import java.sql.*;
 
 public class AmzDB {
     private Connection connect = null;
     private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
     public void initDBSchema() throws Exception {
@@ -198,10 +199,7 @@ public class AmzDB {
         } catch (Exception e) {
             System.out.println("error : "+e);
             throw e;
-        } finally {
-            close();
         }
-
     }
 
     public void initDBData() throws Exception {
@@ -230,9 +228,13 @@ public class AmzDB {
         String insertToCustomer2 = "INSERT INTO amazeon.customer (customer_id) VALUES (2);";
         String insertToCustomer3 = "INSERT INTO amazeon.customer (customer_id) VALUES (3);";
 
-        String insertIntoAddr = " INSERT INTO amazeon.address " +
+        String insertIntoAddr1 = " INSERT INTO amazeon.address " +
                 "( person_id, addr_type, address)" +
                 "VALUES ( 1, \"HOME\", \"123, Dalal Street India\");";
+
+        String insertIntoAddr2 = " INSERT INTO amazeon.address " +
+                "( person_id, addr_type, address)" +
+                "VALUES ( 2, \"OFFICE\", \"FLipkart Office, Pune, India\");";
 
         statement.executeUpdate(insertToPerson1);
         statement.executeUpdate(insertToPerson2);
@@ -240,60 +242,23 @@ public class AmzDB {
         statement.executeUpdate(insertToCustomer1);
         statement.executeUpdate(insertToCustomer2);
         statement.executeUpdate(insertToCustomer3);
-        statement.executeUpdate(insertIntoAddr);
+        statement.executeUpdate(insertIntoAddr1);
+        statement.executeUpdate(insertIntoAddr2);
     }
 
-    private void writeMetaData(ResultSet resultSet) throws SQLException {
-        //  Now get some metadata from the database
-        // Result set get the result of the SQL query
+    public Address getAddrFromPersonId(int personId) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        // Setup the connection with the DB
+        connect = DriverManager
+                .getConnection("jdbc:mysql://localhost/?user=root&password=root");
+        statement = connect.createStatement();
+        String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
 
-        System.out.println("The columns in the table are: ");
-
-        System.out.println("Table: " + resultSet.getMetaData().getTableName(1));
-        for  (int i = 1; i<= resultSet.getMetaData().getColumnCount(); i++){
-            System.out.println("Column " +i  + " "+ resultSet.getMetaData().getColumnName(i));
+        ResultSet res = statement.executeQuery(query);
+        if(res.next()) {
+            System.out.println(res);
+            return new Address(res.getInt(1), res.getString(2), res.getString(3));
         }
+        return new Address(0,"NULL", "NULLTyPE");
     }
-
-
-    private void writeResultSet(ResultSet resultSet) throws SQLException {
-        // ResultSet is initially before the first data set
-        while (resultSet.next()) {
-            // It is possible to get the columns via name
-            // also possible to get the columns via the column number
-            // which starts at 1
-            // e.g. resultSet.getSTring(2);
-            String user = resultSet.getString("myuser");
-            String website = resultSet.getString("webpage");
-            String summary = resultSet.getString("summary");
-            Date date = resultSet.getDate("datum");
-            String comment = resultSet.getString("comments");
-            System.out.println("User: " + user);
-            System.out.println("Website: " + website);
-            System.out.println("summary: " + summary);
-            System.out.println("Date: " + date);
-            System.out.println("Comment: " + comment);
-        }
-    }
-
-    // You need to close the resultSet
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-            // Comment
-        }
-    }
-
-
 }
