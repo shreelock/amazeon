@@ -206,7 +206,7 @@ public class AmzDB {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
-                .getConnection("jdbc:mysql://localhost/?user=root&password=root");
+                .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
 
         // Statements allow to issue SQL queries to the database
         statement = connect.createStatement();
@@ -249,7 +249,7 @@ public class AmzDB {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
-                .getConnection("jdbc:mysql://localhost/?user=root&password=root");
+                .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
         statement = connect.createStatement();
         String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
 
