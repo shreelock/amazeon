@@ -15,11 +15,10 @@ public class AmzDB {
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
             connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/?user=root&password=root");
+                    .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();
-            statement.executeUpdate("drop database amazeon");
             statement.executeUpdate("create database if not exists amazeon");
             statement.executeUpdate("use amazeon");
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Item (" +
@@ -79,7 +78,7 @@ public class AmzDB {
                     "  PRIMARY KEY (customer_id,interest)," +
                     "  CONSTRAINT fk_customer_interests_cus FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE CASCADE ON UPDATE CASCADE" +
                     ");");
-            
+
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS employee (" +
                     "  employee_id int(10) unsigned NOT NULL," +
                     "  salary int(11) unsigned NOT NULL," +
@@ -156,7 +155,7 @@ public class AmzDB {
                     "  pay_timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
                     "  PRIMARY KEY (payment_id)" +
                     ");");
-            
+
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS Shipment (" +
                     "  shipment_id int(10) unsigned NOT NULL AUTO_INCREMENT," +
                     "  delivery_date date NOT NULL," +
@@ -257,7 +256,7 @@ public class AmzDB {
         ResultSet res = statement.executeQuery(query);
         if(res.next()) {
             System.out.println(res);
-            return new Address(res.getInt(1), res.getString(2), res.getString(3));
+            return new Address(res.getInt(1), res.getString(3), res.getString(2));
         }
         return new Address(0,"NULL", "NULLTyPE");
     }
