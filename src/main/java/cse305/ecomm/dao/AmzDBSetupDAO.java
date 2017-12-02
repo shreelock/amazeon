@@ -6,7 +6,7 @@ import cse305.ecomm.representations.Item;
 
 import java.sql.*;
 
-public class AmzDB {
+public class AmzDBSetupDAO {
     private Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
