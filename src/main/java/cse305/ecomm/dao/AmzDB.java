@@ -1,6 +1,8 @@
 package cse305.ecomm.dao;
 
 import cse305.ecomm.representations.Address;
+import cse305.ecomm.representations.Inventory;
+import cse305.ecomm.representations.Item;
 
 import java.sql.*;
 
@@ -259,5 +261,16 @@ public class AmzDB {
             return new Address(res.getInt(1), res.getString(3), res.getString(2));
         }
         return new Address(0,"NULL", "NULLTyPE");
+    }
+
+    public Item getItemInfoByID(int itemID) throws Exception {
+        Class.forName("com.mysql.jdbc.Driver");
+        // Setup the connection with the DB
+        connect = DriverManager
+                .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
+        statement = connect.createStatement();
+//        String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
+
+        return new Item(-1,"NULL","NULL",-1,"NULL","NULL");
     }
 }
