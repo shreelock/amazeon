@@ -3,8 +3,7 @@ package cse305.ecomm;
 import cse305.ecomm.basicauth.AppAuthenticator;
 import cse305.ecomm.basicauth.AppAuthorizer;
 import cse305.ecomm.basicauth.User;
-import cse305.ecomm.controller.EmployeeRESTController;
-import cse305.ecomm.controller.RESTClientController;
+import cse305.ecomm.controller.AmzRESTController;
 import cse305.ecomm.healthcheck.AppHealthCheck;
 import cse305.ecomm.healthcheck.HealthCheckController;
 import io.dropwizard.Application;
@@ -33,11 +32,10 @@ public class App extends Application<Configuration> {
 	{
 		LOGGER.info("Registering REST resources");
 		
-		e.jersey().register(new EmployeeRESTController(e.getValidator()));
+		e.jersey().register(new AmzRESTController(e.getValidator()));
 
 		final Client client = new JerseyClientBuilder(e)
-				.build("DemoRESTClient");
-		e.jersey().register(new RESTClientController(client));
+				.build("RESTClient");
 
 		// Application health check
 		e.healthChecks().register("APIHealthCheck", new AppHealthCheck(client));
