@@ -1,0 +1,20 @@
+.display_flex{
+	display: flex;
+}
+.flex_1{
+	flex:1;
+}
+.width_full{
+	width:100%;
+}
+.align_item_center{
+	align-items: center;
+}
+.justify_content_center{
+    justify-content: center;
+}
+
+.background_eeeeee{
+	background-color: #eeeeee;
+}
+
