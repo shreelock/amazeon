@@ -13,7 +13,7 @@ public class ShoppingCartResponse {
     private int quantity;
     private String itemName;
 
-    public ShoppingCartResponse(int customerId, int itemId, int selleId, int quantity, String itemName) {
+    public ShoppingCartResponse(int customerId, int itemId, int sellerId, int quantity, String itemName) {
         this.customerId = customerId;
         this.itemId = itemId;
         this.sellerId = sellerId;
