@@ -1,17 +1,8 @@
 package cse305.ecomm.controller;
 
 
-import cse305.ecomm.dao.AmzDBSetupDAO;
-import cse305.ecomm.dao.InventoryDAO;
-import cse305.ecomm.dao.ItemDAO;
-import cse305.ecomm.representations.Item;
-import cse305.ecomm.representations.ItemReviewResponse;
-import cse305.ecomm.dao.PersonDao;
-import cse305.ecomm.dao.ShoppingCartDao;
-import cse305.ecomm.representations.Address;
-import cse305.ecomm.representations.InventoryQtyResponse;
-import cse305.ecomm.representations.Person;
-import cse305.ecomm.representations.ShoppingCartResponse;
+import cse305.ecomm.dao.*;
+import cse305.ecomm.representations.*;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Validator;
@@ -72,6 +63,14 @@ public class AmzRESTController {
         return Response.ok(person).build();
     }
 
+    @PermitAll
+    @GET
+    @Path("/person_name/{name}")
+    public Response getPersonFromName(@PathParam("name") String person_name) throws Exception {
+        PersonDao personDao = new PersonDao();
+        List<Person> person = personDao.getPersonInfoByName(person_name);
+        return Response.ok(person).build();
+    }
 
     @PermitAll
     @GET
@@ -113,5 +112,25 @@ public class AmzRESTController {
         List<ItemReviewResponse> resp = dao.getItemReviewByID(item_id);
         System.out.println(resp);
         return Response.ok(resp).build();
+    }
+
+    @PermitAll
+    @GET
+    @Path("/customerOrders/{customer_id}")
+    public Response ordersByCustomer(@PathParam("customer_id") Integer customer_id) throws Exception {
+        OrderDAO dao = new OrderDAO();
+        List<Order> orders = dao.getOrderInfoByCustId(customer_id);
+        System.out.println(orders);
+        return Response.ok(orders).build();
+    }
+
+    @PermitAll
+    @GET
+    @Path("/itemsOrderedByCustomer/{customer_id}_{item_id}")
+    public Response itemsOrderedByCustomer(@PathParam("customer_id") Integer customer_id, @PathParam("item_id") Integer item_id) throws Exception {
+        OrderDAO dao = new OrderDAO();
+        List<Order> orders = dao.getOrderInfoByCustItemId(customer_id, item_id);
+        System.out.println(orders);
+        return Response.ok(orders).build();
     }
 }

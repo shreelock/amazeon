@@ -9,15 +9,9 @@ public class ItemReviewResponse {
         this.reviewInfo = review;
     }
 
-    public String getReviewText() { return this.reviewInfo.getReviewText(); }
+    public String getCustomerName() { return customerName; }
 
-    public String getCustomerName() { return this.customerName; }
-
-    public Integer getCustomerID() { return this.reviewInfo.getCustomerId(); }
-
-    public Integer getItemID() { return this.reviewInfo.getItemId(); }
-
-    public Integer getRating() { return this.reviewInfo.getRating(); }
+    public ItemReview getReviewInfo() { return reviewInfo; }
 
     public void setCustomerName(String customerName) { this.customerName = customerName; }
 

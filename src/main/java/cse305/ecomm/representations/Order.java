@@ -9,11 +9,14 @@ public class Order {
     private Integer customerId;
     @NotNull
     private Integer paymentId;
+    @NotNull
+    private OrderDetails orderInfo;
 
-    public Order(Integer orderId, Integer customerId, Integer paymentId) {
+    public Order(Integer orderId, Integer customerId, Integer paymentId, OrderDetails orderInfo) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.paymentId = paymentId;
+        this.orderInfo = orderInfo;
     }
 
     public void setCustomerId(Integer customerId) {
@@ -23,6 +26,10 @@ public class Order {
     public void setPaymentId(Integer paymentId) {
         this.paymentId = paymentId;
     }
+
+    public void setOrderInfo(OrderDetails orderInfo) { this.orderInfo = orderInfo; }
+
+    public void setOrderId(Integer orderId) { this.orderId = orderId; }
 
     public Integer getOrderId() {
         return orderId;
@@ -35,4 +42,6 @@ public class Order {
     public Integer getPaymentId() {
         return paymentId;
     }
+
+    public OrderDetails getOrderInfo() { return orderInfo; }
 }
