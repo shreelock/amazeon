@@ -16,7 +16,7 @@ public class ShoppingCartDao {
     private Statement statement = null;
     private ResultSet resultSet = null;
 
-    public Person getCustomerCartByPersonId(int personId) throws Exception {
+    public List<ShoppingCartResponse> getCustomerCartByPersonId(int personId) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
@@ -27,9 +27,9 @@ public class ShoppingCartDao {
         List<ShoppingCartResponse> ShoppingCartRespList = new ArrayList<>();
         if(res.next()) {
             System.out.println(res);
-            ShoppingCartRespList.add(new ShoppingCartResponse(res.getInt(1), res.getInt(2),res.getString(3),res.getString(4),res.getInt(5), res.getString(6)););
+            ShoppingCartRespList.add(new ShoppingCartResponse(res.getInt(1), res.getInt(2),res.getInt(3),res.getInt(4), res.getString(5)));
         }
-        return new Person(0,"Ayush", "63142886671", "ayush2913", 25, "password");
+        return ShoppingCartRespList;
 
     }
 
