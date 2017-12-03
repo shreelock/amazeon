@@ -1,7 +1,9 @@
 package cse305.ecomm.controller;
 
 import cse305.ecomm.dao.AmzDB;
+import cse305.ecomm.dao.PersonDao;
 import cse305.ecomm.representations.Address;
+import cse305.ecomm.representations.Person;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Validator;
@@ -52,4 +54,13 @@ public class AmzRESTController {
         Address address = dao.getAddrFromPersonId(person_id);
        return Response.ok(address).build();
     }
+    @PermitAll
+    @GET
+    @Path("/person/{person_id}")
+    public Response getPersonFromPersonId(@PathParam("person_id") Integer person_id) throws Exception {
+        PersonDao personDao = new PersonDao();
+        Person person = personDao.getPersonById(person_id);
+        return Response.ok(person).build();
+    }
+
 }
