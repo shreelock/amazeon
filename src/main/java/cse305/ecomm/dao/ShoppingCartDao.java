@@ -22,10 +22,13 @@ public class ShoppingCartDao {
         connect = DriverManager
                 .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
         statement = connect.createStatement();
-        String query = "SELECT shopping_cart.customer_id, shopping_cart.item_id, shopping_cart.seller_id, shopping_cart.quantity, item.item_name FROM amazeon.shopping_cart JOIN amazeon.item WHERE shopping_cart.customer_id = " + personId + "AND shopping_cart.item_id = item.item_id;";
+        String query = "SELECT shopping_cart.customer_id, shopping_cart.item_id, shopping_cart.seller_id," +
+                " shopping_cart.quantity, item.item_name FROM amazeon.shopping_cart JOIN amazeon.item" +
+                " WHERE shopping_cart.customer_id = " + personId + " AND " +
+                "shopping_cart.item_id = item.item_id;";
         ResultSet res = statement.executeQuery(query);
         List<ShoppingCartResponse> ShoppingCartRespList = new ArrayList<>();
-        if(res.next()) {
+        while(res.next()) {
             System.out.println(res);
             ShoppingCartRespList.add(new ShoppingCartResponse(res.getInt(1), res.getInt(2),res.getInt(3),res.getInt(4), res.getString(5)));
         }
