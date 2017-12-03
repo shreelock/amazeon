@@ -6,13 +6,19 @@ public class InventoryQtyResponse {
     @NotNull
     private Integer itemId;
     @NotNull
+    private Integer sellerId;
+    @NotNull
     private String itemName;
+    @NotNull
+    private String sellerName;
     @NotNull
     private Integer quantity=0;
 
-    public InventoryQtyResponse(int itemId, String itemName, int quantity) {
+    public InventoryQtyResponse(int itemId, Integer sellerId, String itemName, String sellerName, int quantity) {
         this.itemId = itemId;
+        this.sellerId = sellerId;
         this.itemName = itemName;
+        this.sellerName = sellerName;
         this.quantity = quantity;
     }
 
@@ -40,4 +46,19 @@ public class InventoryQtyResponse {
         this.itemId = itemId;
     }
 
+    public Integer getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
 }
