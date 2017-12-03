@@ -4,20 +4,15 @@ package cse305.ecomm.controller;
 import cse305.ecomm.dao.AmzDBSetupDAO;
 import cse305.ecomm.dao.InventoryDAO;
 import cse305.ecomm.dao.PersonDao;
-import cse305.ecomm.dao.ShoppingCartDao;
-import cse305.ecomm.representations.Address;
-import cse305.ecomm.representations.InventoryQtyResponse;
-import cse305.ecomm.representations.Person;
-import cse305.ecomm.representations.ShoppingCartResponse;
+import cse305.ecomm.dao.ShoppingCartDAO;
+import cse305.ecomm.representations.*;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Validator;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,10 +79,20 @@ public class AmzRESTController {
     @GET
     @Path("/getCart/{person_id}")
     public Response getCartByPersonId(@PathParam("person_id") Integer person_id) throws Exception {
-        ShoppingCartDao dao = new ShoppingCartDao();
+        ShoppingCartDAO dao = new ShoppingCartDAO();
         List<ShoppingCartResponse> resp = dao.getCustomerCartByPersonId(person_id);
         System.out.println(resp);
         return Response.ok(resp).build();
     }
+
+    @PermitAll
+    @POST
+    @Path("/addToCart")
+    public Response addToCart(ShoppingCart cart) throws SQLException, ClassNotFoundException {
+        ShoppingCartDAO dao = new ShoppingCartDAO();
+        boolean out = dao.addToCart(cart);
+        return Response.ok(out).build();
+    }
+
 
 }
