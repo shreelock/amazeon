@@ -1,6 +1,5 @@
 package cse305.ecomm.dao;
 
-import cse305.ecomm.representations.Address;
 import cse305.ecomm.representations.InventoryQtyResponse;
 import cse305.ecomm.representations.Item;
 import cse305.ecomm.representations.ItemReview;
@@ -21,29 +20,16 @@ public class InventoryDAO {
         Class.forName("com.mysql.jdbc.Driver");
         connect = DriverManager.getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
         statement = connect.createStatement();
-        String query = "SELECT item.* , sum(quantity) FROM amazeon.inventory JOIN amazeon.item where inventory.item_id = item.item_id AND quantity>0 group by item.item_id;";
+        String query = "SELECT item.item_id, inventory.seller_id, item.item_name, person.person_name, quantity " +
+                "FROM amazeon.inventory JOIN amazeon.item JOIN amazeon.person " +
+                "WHERE inventory.item_id = item.item_id AND inventory.seller_id = person.personid AND quantity>0;";
         ResultSet rs = statement.executeQuery(query);
 
         List<InventoryQtyResponse> itemQtyRespList = new ArrayList<>();
         while(rs.next()) {
-            Item item = new Item(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), rs.getString(5), rs.getString(6));
-            itemQtyRespList.add(new InventoryQtyResponse(item, rs.getInt(7)));
+            itemQtyRespList.add(new InventoryQtyResponse(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
         }
         return itemQtyRespList;
     }
 
-    public Address getAddrFromPersonId(int personId) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        connect = DriverManager.getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
-        statement = connect.createStatement();
-
-        String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
-
-        ResultSet res = statement.executeQuery(query);
-        if(res.next()) {
-            System.out.println(res);
-            return new Address(res.getInt(1), res.getString(3), res.getString(2));
-        }
-        return new Address(0,"NULL", "NULLTyPE");
-    }
 }
