@@ -1,10 +1,10 @@
 package cse305.ecomm.representations;
 
-public class ItemReviewFrontEnd {
+public class ItemReviewResponse {
     private String customerName;
     private ItemReview reviewInfo;
 
-    public ItemReviewFrontEnd(String customerName, ItemReview review) {
+    public ItemReviewResponse(String customerName, ItemReview review) {
         this.customerName = customerName;
         this.reviewInfo = review;
     }

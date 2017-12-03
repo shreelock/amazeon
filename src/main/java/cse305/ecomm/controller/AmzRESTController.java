@@ -5,7 +5,7 @@ import cse305.ecomm.dao.AmzDBSetupDAO;
 import cse305.ecomm.dao.InventoryDAO;
 import cse305.ecomm.dao.ItemDAO;
 import cse305.ecomm.representations.Item;
-import cse305.ecomm.representations.ItemReviewFrontEnd;
+import cse305.ecomm.representations.ItemReviewResponse;
 import cse305.ecomm.dao.PersonDao;
 import cse305.ecomm.dao.ShoppingCartDao;
 import cse305.ecomm.representations.Address;
@@ -110,7 +110,7 @@ public class AmzRESTController {
     public Response listReviews(@PathParam("item_id") Integer item_id) throws Exception {
 
         ItemDAO dao = new ItemDAO();
-        List<ItemReviewFrontEnd> resp = dao.getItemReviewByID(item_id);
+        List<ItemReviewResponse> resp = dao.getItemReviewByID(item_id);
         System.out.println(resp);
         return Response.ok(resp).build();
     }

@@ -24,7 +24,6 @@ public class ItemDAO {
 
         ResultSet res = statement.executeQuery(query);
         if (res.next()) {
-            System.out.println(res);
             return new Item (res.getInt(1),res.getString(2),res.getString(3),
                     res.getFloat(4),res.getString(5),res.getString(6));
         }
@@ -32,7 +31,7 @@ public class ItemDAO {
         return new Item(-1,"NULL","NULL",-1,"NULL","NULL");
     }
 
-    public List<ItemReviewFrontEnd> getItemReviewByID(int itemID) throws Exception {
+    public List<ItemReviewResponse> getItemReviewByID(int itemID) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
@@ -40,12 +39,11 @@ public class ItemDAO {
         statement = connect.createStatement();
         String query = "SELECT person_name,customer_id,item_id,review_text,rating FROM amazeon.person JOIN amazeon.item_review " +
                         "WHERE person.personid = item_review.customer_id AND item_review.item_id = " + itemID;
-        List<ItemReviewFrontEnd> reviewList = new ArrayList<>();
+        List<ItemReviewResponse> reviewList = new ArrayList<>();
 
         ResultSet res = statement.executeQuery(query);
         while (res.next()) {
-            System.out.println(res);
-            reviewList.add(new ItemReviewFrontEnd (res.getString(1), new ItemReview(res.getInt(2),res.getInt(3),
+            reviewList.add(new ItemReviewResponse (res.getString(1), new ItemReview(res.getInt(2),res.getInt(3),
                     res.getString(4),res.getInt(5))));
         }
         return reviewList;
