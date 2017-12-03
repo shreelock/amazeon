@@ -2,7 +2,7 @@ package cse305.ecomm.representations;
 
 import javax.validation.constraints.NotNull;
 
-public class ShoppingCart {
+public class ShoppingCartResponse {
     @NotNull
     private int customerId;
     @NotNull
@@ -11,14 +11,19 @@ public class ShoppingCart {
     private int sellerId;
     @NotNull
     private int quantity;
+    private String itemName;
 
-    public ShoppingCart(int customerId, int itemId, int selleId, int quantity) {
+    public ShoppingCartResponse(int customerId, int itemId, int selleId, int quantity, String itemName) {
         this.customerId = customerId;
         this.itemId = itemId;
         this.sellerId = sellerId;
         this.quantity = quantity;
+        this.itemName = itemName;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -50,5 +55,9 @@ public class ShoppingCart {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 }
