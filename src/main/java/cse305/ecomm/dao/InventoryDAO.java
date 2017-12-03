@@ -3,6 +3,7 @@ package cse305.ecomm.dao;
 import cse305.ecomm.representations.Address;
 import cse305.ecomm.representations.InventoryQtyResponse;
 import cse305.ecomm.representations.Item;
+import cse305.ecomm.representations.ItemReview;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

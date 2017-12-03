@@ -2,8 +2,11 @@ package cse305.ecomm.controller;
 
 import cse305.ecomm.dao.AmzDBSetupDAO;
 import cse305.ecomm.dao.InventoryDAO;
+import cse305.ecomm.dao.ItemDAO;
 import cse305.ecomm.representations.Address;
 import cse305.ecomm.representations.InventoryQtyResponse;
+import cse305.ecomm.representations.Item;
+import cse305.ecomm.representations.ItemReviewFrontEnd;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Validator;
@@ -61,6 +64,28 @@ public class AmzRESTController {
     public Response listItems() throws Exception {
         InventoryDAO dao = new InventoryDAO();
         List<InventoryQtyResponse> resp = dao.getActiveInventory();
+        System.out.println(resp);
+        return Response.ok(resp).build();
+    }
+
+    @PermitAll
+    @GET
+    @Path("/itemInfo/{item_id}")
+    public Response getItemInfo(@PathParam("item_id") Integer item_id) throws Exception {
+
+        ItemDAO dao = new ItemDAO();
+        Item resp = dao.getItemInfoByID(item_id);
+        System.out.println(resp);
+        return Response.ok(resp).build();
+    }
+
+    @PermitAll
+    @GET
+    @Path("/itemReview/{item_id}")
+    public Response listReviews(@PathParam("item_id") Integer item_id) throws Exception {
+
+        ItemDAO dao = new ItemDAO();
+        List<ItemReviewFrontEnd> resp = dao.getItemReviewByID(item_id);
         System.out.println(resp);
         return Response.ok(resp).build();
     }

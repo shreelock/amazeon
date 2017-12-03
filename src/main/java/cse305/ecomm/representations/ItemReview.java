@@ -17,9 +17,7 @@ public class ItemReview {
         this.rating = rating;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
+    public Integer getCustomerId() { return customerId; }
 
     public Integer getItemId() {
         return itemId;

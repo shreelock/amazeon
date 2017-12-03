@@ -2,7 +2,6 @@ package cse305.ecomm.dao;
 
 import cse305.ecomm.representations.Address;
 import cse305.ecomm.representations.Inventory;
-import cse305.ecomm.representations.Item;
 
 import java.sql.*;
 
@@ -158,7 +157,7 @@ public class AmzDBSetupDAO {
                     "  PRIMARY KEY (payment_id)" +
                     ");");
 
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS Shipment (" +
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS shipment (" +
                     "  shipment_id int(10) unsigned NOT NULL AUTO_INCREMENT," +
                     "  delivery_date date NOT NULL," +
                     "  shipper_name varchar(45) NOT NULL," +
@@ -184,7 +183,7 @@ public class AmzDBSetupDAO {
                     "  CONSTRAINT fk_order_details_orderid FOREIGN KEY (order_id) REFERENCES order_table (order_id) ON DELETE CASCADE ON UPDATE CASCADE," +
                     "  CONSTRAINT fk_order_details_sellerid FOREIGN KEY (seller_id) REFERENCES seller (seller_id) ON DELETE SET NULL ON UPDATE CASCADE," +
                     "  CONSTRAINT fk_order_details_itemid FOREIGN KEY (item_id) REFERENCES Item (item_id) ON DELETE NO ACTION ON UPDATE CASCADE," +
-                    "  CONSTRAINT fk_order_details_shipmentid FOREIGN KEY (shipment_id) REFERENCES Shipment (shipment_id) ON DELETE NO ACTION ON UPDATE CASCADE" +
+                    "  CONSTRAINT fk_order_details_shipmentid FOREIGN KEY (shipment_id) REFERENCES shipment (shipment_id) ON DELETE NO ACTION ON UPDATE CASCADE" +
                     ");");
             
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS shopping_cart (" +
@@ -261,16 +260,5 @@ public class AmzDBSetupDAO {
             return new Address(res.getInt(1), res.getString(3), res.getString(2));
         }
         return new Address(0,"NULL", "NULLTyPE");
-    }
-
-    public Item getItemInfoByID(int itemID) throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        // Setup the connection with the DB
-        connect = DriverManager
-                .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
-        statement = connect.createStatement();
-//        String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
-
-        return new Item(-1,"NULL","NULL",-1,"NULL","NULL");
     }
 }
