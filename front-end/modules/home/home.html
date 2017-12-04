@@ -1,3 +1,17 @@
-<div>
-	hello world!
+<div ng-controller="homeCtrl as hc" class="display_flex flex_1" style="height: 100%;">
+	<div class="display_flex" style="flex: 0.4; border: 1px solid black;">
+		
+	</div>
+	<div class="display_flex flex_column" style="flex: 0.6; padding: 5px;">
+		<div class="display_flex" style="flex: 0.4; border: 1px solid black; margin-bottom: 5px;">
+			
+		</div>
+		<div class="display_flex flex_column" style="flex: 0.6; border: 1px solid black;">
+			<div ng-repeat="item in hc.data" class="display_flex width_full" style="border-bottom: 1px solid black">
+				<a ng-click="" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
+				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerName}}</a>
+				<span style="padding-right:5px; width: 15%;">Quantity: {{item.quantity}}</span>
+			</div>
+		</div>
+	</div>
 </div>
