@@ -2,6 +2,18 @@ app.controller('homeCtrl', function($scope, $http) {
 	var home = this;
 	home.itemData = [];
 	home.personInfo = $scope.personInfo;
+	home.shoppingCart = [];
+
+	$http.get('http://localhost:8080/getCart/' + home.personInfo.personId).
+        then(function(response) {
+        	console.log(response.data);
+        	response.data.forEach(function(item){
+        		home.shoppingCart.push(item);
+        	});
+    },function myError(response) {
+    	console.log(response);
+	});
+
 
 	$http.get('http://localhost:8080/listItems/').
         then(function(response) {
