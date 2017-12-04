@@ -1,0 +1,57 @@
+<div ng-controller="homeCtrl as hc" class="display_flex flex_1" style="height: 100%;">
+	<div class="display_flex flex_column" style="width:40%; padding: 5px;">
+		<div class="display_flex" style="height: 50%; border: 1px solid black; margin-bottom: 5px; padding: 5px;">
+			<img src="" style="border: 1px solid black; width: 30%; margin-right: 10px; height:60%;">
+			<div class="display_flex flex_column">
+				<span>
+					Name : {{hc.personInfo.personName}}
+				</span>
+				<span>
+					Contact Number : {{hc.personInfo.contactNumber}}
+				</span>
+				<span>
+					Email Address : {{hc.personInfo.emailAddress}}
+				</span>
+				<span>
+					Age : {{hc.personInfo.age}}
+				</span>
+			</div>
+		</div>
+		<div class="display_flex flex_column" style="height: 50%; border: 1px solid black;">
+			<div ng-repeat="item in hc.shoppingCart" class="display_flex width_full" style="border-bottom: 1px solid black">
+				<a ng-click="hc.getItemInfo(item)" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
+				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerId}}</a>
+				<span style="padding-right:5px; width: 15%;">Quantity: {{item.quantity}}</span>
+			</div>
+		</div>		
+	</div>
+	<div class="display_flex flex_column" style="width: 60%; padding: 5px;">
+		<div class="display_flex" style="height: 40%; border: 1px solid black; margin-bottom: 5px; padding: 5px;">
+			<img src="" style="border: 1px solid black; width: 30%; margin-right: 10px;">
+			<div class="display_flex flex_column">
+				<span>
+					Name : {{hc.itemInfo.itemName}}
+				</span>
+				<span>
+					Category : {{hc.itemInfo.category}}
+				</span>
+				<span>
+					Description : {{hc.itemInfo.description}}
+				</span>
+				<span>
+					Price : ${{hc.itemInfo.price}}
+				</span>
+				<span>
+					Description : {{hc.itemInfo.description}}
+				</span>
+			</div>
+		</div>
+		<div class="display_flex flex_column" style="height: 60%; border: 1px solid black;">
+			<div ng-repeat="item in hc.itemData" class="display_flex width_full" style="border-bottom: 1px solid black">
+				<a ng-click="hc.getItemInfo(item)" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
+				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerName}}</a>
+				<span style="padding-right:5px; width: 15%;">Quantity: {{item.quantity}}</span>
+			</div>
+		</div>
+	</div>
+</div>

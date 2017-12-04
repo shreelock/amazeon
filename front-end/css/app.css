@@ -17,4 +17,7 @@
 .background_eeeeee{
 	background-color: #eeeeee;
 }
+.flex_column{
+	flex-direction: column;
+}
 

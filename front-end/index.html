@@ -1,16 +1,41 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+
+    <!-- CSS -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/app.css">
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/angular.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/app.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/modules/signin/signin.js"></script>
+    <script src="/modules/home/home.js"></script>
+    <base href="/">
 
+</head>
 
-<body ng-app="amazeon">
-	<div class="display_flex flex1 width_full justify_content_center background_eeeeee">
+<!-- apply our angular app -->
+<body ng-app="amazeon" ng-controller="mainCtrl" style="height:100%;">
+	<div class="display_flex flex_1 width_full justify_content_center background_eeeeee">
 		<h1 style="margin-top: 10px;">Amazeon</h1>
 	</div>
-</body>	
+    <div ng-if="!loggedIn.value" class="display_flex flex_1" style="border-top: 1px solid black;">
+
+        <!-- views will be injected here -->
+        <div class="display_flex justify_content_center flex_1" sign-in></div>
+
+    </div>
+
+    <div ng-if="loggedIn.value" class="display_flex flex_1" style="border-top: 1px solid black; height:100%">
+
+        <!-- views will be injected here -->
+        <div class="display_flex justify_content_center flex_1" home-page></div>
+
+    </div>
+
+
+</body>
 </html>
