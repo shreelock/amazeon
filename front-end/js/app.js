@@ -8,6 +8,7 @@ app.config(['$locationProvider', function($locationProvider) {
 app.controller('mainCtrl', function($scope, $http) {
 	
 		$scope.loggedIn = {value:false};
+		$scope.personInfo = {};
 		/*console.log($scope.username, $scope.password);
 		//$httpProvider.defaults.useXDomain = true;
 		delete $http.defaults.headers.common['X-Requested-With'];
