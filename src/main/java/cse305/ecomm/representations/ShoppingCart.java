@@ -12,11 +12,15 @@ public class ShoppingCart {
     @NotNull
     private int quantity;
 
-    public ShoppingCart(int customerId, int itemId, int selleId, int quantity) {
+    public ShoppingCart(int customerId, int itemId, int sellerId, int quantity) {
         this.customerId = customerId;
         this.itemId = itemId;
         this.sellerId = sellerId;
         this.quantity = quantity;
+    }
+    // We need this for JSON Mapping
+    public ShoppingCart() {
+
     }
 
 

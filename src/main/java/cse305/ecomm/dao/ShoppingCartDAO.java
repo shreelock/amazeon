@@ -1,17 +1,13 @@
 package cse305.ecomm.dao;
 
-import cse305.ecomm.representations.Person;
 import cse305.ecomm.representations.ShoppingCart;
 import cse305.ecomm.representations.ShoppingCartResponse;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingCartDao {
+public class ShoppingCartDAO {
     private Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
@@ -33,7 +29,22 @@ public class ShoppingCartDao {
             ShoppingCartRespList.add(new ShoppingCartResponse(res.getInt(1), res.getInt(2),res.getInt(3),res.getInt(4), res.getString(5)));
         }
         return ShoppingCartRespList;
+    }
 
+
+    public boolean addToCart (ShoppingCart cart) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        connect = DriverManager.getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
+        statement = connect.createStatement();
+
+        String query = "INSERT INTO amazeon.shopping_cart (`customer_id`,`item_id`,`seller_id`,`quantity`) VALUES( " + cart.getCustomerId() + " , " + cart.getItemId() +" , " + cart.getSellerId() +" , " + cart.getQuantity()+ " );";
+        int out = 0;
+        try {
+            out = statement.executeUpdate(query);
+        } catch (Exception e) {
+            //pass
+        }
+        return out > 0;
     }
 
 
