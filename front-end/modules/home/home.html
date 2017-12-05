@@ -21,29 +21,44 @@
 			<div ng-repeat="item in hc.shoppingCart" class="display_flex width_full" style="border-bottom: 1px solid black">
 				<a ng-click="hc.getItemInfo(item)" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
 				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerId}}</a>
-				<span style="padding-right:5px; width: 15%;">Quantity: {{item.quantity}}</span>
+				<span style="padding-right:5px; width: 20%;">Quantity: {{item.quantity}}</span>
+				<span ng-click="hc.removeFromCart(item)"class="glyphicon glyphicon-minus-sign" style="margin-left: auto; align-self: center; margin-right: 5px; cursor: pointer;"></span>
+				<span ng-click="hc.deleteFromCart(item)"class="glyphicon glyphicon-trash" style=" align-self: center; margin-right: 5px; cursor: pointer;"></span>
 			</div>
 		</div>		
 	</div>
 	<div class="display_flex flex_column" style="width: 60%; padding: 5px;">
-		<div class="display_flex" style="height: 40%; border: 1px solid black; margin-bottom: 5px; padding: 5px;">
-			<img src="" style="border: 1px solid black; width: 30%; margin-right: 10px;">
-			<div class="display_flex flex_column">
-				<span>
-					Name : {{hc.itemInfo.itemName}}
-				</span>
-				<span>
-					Category : {{hc.itemInfo.category}}
-				</span>
-				<span>
-					Description : {{hc.itemInfo.description}}
-				</span>
-				<span>
-					Price : ${{hc.itemInfo.price}}
-				</span>
-				<span>
-					Description : {{hc.itemInfo.description}}
-				</span>
+		<div class="display_flex flex_column" style="height: 40%; border: 1px solid black; margin-bottom: 5px; padding: 5px;">
+			<div class="display_flex" style="height: 70%; margin-bottom: 10px;">
+				<img src="" style="border: 1px solid black; width: 30%; margin-right: 10px;">
+				<div class="display_flex flex_column">
+					<span>
+						Name : {{hc.itemInfo.itemName}}
+					</span>
+					<span>
+						Category : {{hc.itemInfo.category}}
+					</span>
+					<span>
+						Description : {{hc.itemInfo.description}}
+					</span>
+					<span>
+						Price : ${{hc.itemInfo.price}}
+					</span>
+					<span>
+						Description : {{hc.itemInfo.description}}
+					</span>
+				</div>			
+			</div>
+			<div class="display_flex" style="border-top: 1px solid black">
+				<span style="width: 20%;">Customer Name</span>
+				<span style="width: 20%;">Rating</span>
+				<span style="width: 60%;">Review Text</span>
+			</div>
+
+			<div class="display_flex" ng-repeat="review in hc.itemInfo.review" style="border-top: 1px solid black">
+				<span style="width: 20%;">{{review.customerName}}</span>
+				<span style="width: 20%;">{{review.reviewInfo.rating}}</span>
+				<span style="width: 60%;">{{review.reviewInfo.reviewText}}</span>
 			</div>
 		</div>
 		<div class="display_flex flex_column" style="height: 60%; border: 1px solid black;">
@@ -51,6 +66,7 @@
 				<a ng-click="hc.getItemInfo(item)" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
 				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerName}}</a>
 				<span style="padding-right:5px; width: 15%;">Quantity: {{item.quantity}}</span>
+				<span ng-click="hc.addToCart(item)"class="glyphicon glyphicon-plus-sign" style="margin-left: auto; align-self: center; margin-right: 5px; cursor: pointer;"></span>
 			</div>
 		</div>
 	</div>
