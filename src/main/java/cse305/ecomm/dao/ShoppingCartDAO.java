@@ -37,7 +37,10 @@ public class ShoppingCartDAO {
         connect = DriverManager.getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
         statement = connect.createStatement();
 
-        String query = "INSERT INTO amazeon.shopping_cart (`customer_id`,`item_id`,`seller_id`,`quantity`) VALUES( " + cart.getCustomerId() + " , " + cart.getItemId() +" , " + cart.getSellerId() +" , " + cart.getQuantity()+ " );";
+        String query = "INSERT INTO amazeon.shopping_cart " +
+                "(`customer_id`,`item_id`,`seller_id`,`quantity`) " +
+                "VALUES( " + cart.getCustomerId() + " , " + cart.getItemId() +" , " + cart.getSellerId() +" , " + cart.getQuantity()+ " )"+
+                "ON DUPLICATE KEY UPDATE quantity="+cart.getQuantity()+";";
         int out = 0;
         try {
             out = statement.executeUpdate(query);
