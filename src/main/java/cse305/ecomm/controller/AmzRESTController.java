@@ -1,11 +1,6 @@
 package cse305.ecomm.controller;
 
 
-import cse305.ecomm.dao.AmzDBSetupDAO;
-import cse305.ecomm.dao.InventoryDAO;
-import cse305.ecomm.dao.PersonDao;
-import cse305.ecomm.dao.ShoppingCartDAO;
-import cse305.ecomm.representations.*;
 import cse305.ecomm.dao.*;
 import cse305.ecomm.representations.*;
 
@@ -15,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -153,6 +149,15 @@ public class AmzRESTController {
     public Response addToCart(ShoppingCart cart) throws SQLException, ClassNotFoundException {
         ShoppingCartDAO dao = new ShoppingCartDAO();
         boolean out = dao.addToCart(cart);
+        return Response.ok(out).build();
+    }
+
+    @PermitAll
+    @POST
+    @Path("/placeOrder1")
+    public Response placeOrder(OrderPageEntity orderPageEntity) throws SQLException, ClassNotFoundException, ParseException {
+        ShoppingCartDAO dao = new ShoppingCartDAO();
+        boolean out = dao.pushOrderSwitch(orderPageEntity);
         return Response.ok(out).build();
     }
 
