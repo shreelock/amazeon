@@ -99,7 +99,7 @@ CREATE TABLE works_in_dept (
   CONSTRAINT fk_works_in_dept_empid FOREIGN KEY (employee_id) REFERENCES employee (employee_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Item (
+CREATE TABLE item (
   item_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   item_type varchar(45) DEFAULT NULL,
   item_name varchar(45) NOT NULL,
