@@ -101,7 +101,7 @@ CREATE TABLE works_in_dept (
   CONSTRAINT fk_works_in_dept_empid FOREIGN KEY (employee_id) REFERENCES employee (employee_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Item (
+CREATE TABLE item (
   item_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   item_type varchar(45) DEFAULT NULL,
   item_name varchar(45) NOT NULL,
@@ -147,13 +147,16 @@ CREATE TABLE Shipment (
   PRIMARY KEY (shipment_id)
 );
 
-CREATE TABLE order_table (
-  order_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  customer_id int(10) unsigned DEFAULT NULL,
-  payment_id int(10) unsigned NOT NULL,
-  PRIMARY KEY (order_id),
-  CONSTRAINT fk_order_customer FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT fk_order_payment FOREIGN KEY (payment_id) REFERENCES payment (payment_id) ON DELETE NO ACTION ON UPDATE CASCADE
+CREATE TABLE `order_table` (
+  `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` int(10) unsigned DEFAULT NULL,
+  `payment_id` int(10) unsigned NOT NULL,
+  `address_type` varchar(45) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `fk_order_customer` (`customer_id`),
+  KEY `fk_order_payment` (`payment_id`),
+  CONSTRAINT `fk_order_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_order_payment` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`payment_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE order_details (
