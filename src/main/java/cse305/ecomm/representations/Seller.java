@@ -7,8 +7,8 @@ public class Seller extends Person {
     private Integer sellerId;
     private Integer sellerQuality = null;
 
-    public Seller(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword, Integer sellerId, Integer sellerQuality) {
-        super(personId, personName, contactNumber, emailAddress, age, securePassword);
+    public Seller(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword, Integer sellerId, Integer sellerQuality, String userName) {
+        super(personId, personName, contactNumber, emailAddress, age, securePassword, userName);
         this.sellerId = sellerId;
         this.sellerQuality = sellerQuality;
     }

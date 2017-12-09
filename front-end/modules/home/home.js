@@ -3,7 +3,26 @@ app.controller('homeCtrl', function($scope, $http) {
 	home.itemData = [];
 	home.personInfo = $scope.personInfo;
 	home.shoppingCart = [];
+    home.addressOptions = [];
 
+    home.deliveryOptions = ["Free delivery", "Express delivery", "Prime delivery"];
+    home.selectedDeliveryOption = '';
+
+    function getAddressByPersonID(){
+        home.addressOptions = [];
+        $http.get('http://localhost:8080/getaddr/'+home.personInfo.personId).
+            then(function(response) {
+                console.log(response.data);
+                response.data.forEach(function(item){
+                    home.addressOptions['label'] = item.address;
+                    home.addressOptions['value'] = item.addrType;
+                });
+        },function myError(response) {
+            console.log(response);
+        });
+    };
+
+    getAddressByPersonID();
 
     function refreshShoppingCart(){
     	home.shoppingCart = [];

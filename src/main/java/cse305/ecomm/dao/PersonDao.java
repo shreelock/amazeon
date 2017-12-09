@@ -26,28 +26,27 @@ public class PersonDao {
         ResultSet res = statement.executeQuery(query);
         if(res.next()) {
             System.out.println(res);
-            return new Person(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getInt(5), res.getString(6));
+            return new Person(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getInt(5), res.getString(6), resultSet.getString(7));
         }
-        return new Person(0,"Ayush", "63142886671", "ayush2913", 25, "password");
+        return new Person(0,"Ayush", "63142886671", "ayush2913", 25, "password", "ayush2913");
 
     }
 
-    public List<Person> getPersonInfoByName(String person_name) throws Exception {
+    public Person getPersonInfoByName(String user_name) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
                 .getConnection("jdbc:mysql://a.vshukla.in:3306/?user=admin&password=password");
         statement = connect.createStatement();
-        String query = "SELECT * FROM amazeon.person WHERE person_name LIKE '" + person_name + "%';";
-        List<Person> personList = new ArrayList<>();
+        String query = "SELECT * FROM amazeon.person WHERE user_name = '" + user_name + "';";
+
 
         ResultSet res = statement.executeQuery(query);
-        while(res.next()) {
-            System.out.println(res);
-            personList.add(new Person(res.getInt(1),res.getString(2),res.getString(3),
-                    res.getString(4),res.getInt(5),res.getString(6)));
+        if(res.next()) {
+            return new Person(res.getInt(1),res.getString(2),res.getString(3),
+                    res.getString(4),res.getInt(5),res.getString(6), res.getString(7));
         }
-        return personList;
+        return new Person(0,"Ayush", "63142886671", "ayush2913", 25, "password", "ayush2913");
     }
 
 }

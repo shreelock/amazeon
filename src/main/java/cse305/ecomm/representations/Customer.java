@@ -6,8 +6,8 @@ public class Customer extends Person {
     @NotNull
     private Integer customerId;
 
-    public Customer(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword, Integer customerId) {
-        super(personId, personName, contactNumber, emailAddress, age, securePassword);
+    public Customer(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword, Integer customerId, String userName) {
+        super(personId, personName, contactNumber, emailAddress, age, securePassword, userName);
         this.customerId = customerId;
     }
 

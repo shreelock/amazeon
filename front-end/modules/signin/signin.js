@@ -6,7 +6,7 @@ app.controller('signInCtrl', function($scope, $http) {
 		
 		console.log($scope.username, $scope.password);
 		//$httpProvider.defaults.useXDomain = true;
-	    $http.get('http://localhost:8080/person/'+$scope.username).
+	    $http.get('http://localhost:8080/person_name/'+$scope.username).
 	        then(function(response) {
 	            if(response.data.securePassword === $scope.password){
 	            	$scope.loggedIn.value = true;

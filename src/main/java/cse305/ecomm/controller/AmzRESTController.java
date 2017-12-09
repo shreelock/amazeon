@@ -53,7 +53,7 @@ public class AmzRESTController {
     @Path("/getaddr/{person_id}")
     public Response getUserAddrFromPersonId(@PathParam("person_id") Integer person_id) throws Exception {
         AmzDBSetupDAO dao = new AmzDBSetupDAO();
-        Address address = dao.getAddrFromPersonId(person_id);
+        List<Address> address = dao.getAddrFromPersonId(person_id);
        return Response.ok(address).build();
     }
 
@@ -71,7 +71,7 @@ public class AmzRESTController {
     @Path("/person_name/{name}")
     public Response getPersonFromName(@PathParam("name") String person_name) throws Exception {
         PersonDao personDao = new PersonDao();
-        List<Person> person = personDao.getPersonInfoByName(person_name);
+        Person person = personDao.getPersonInfoByName(person_name);
         return Response.ok(person).build();
     }
 

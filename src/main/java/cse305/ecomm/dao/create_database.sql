@@ -7,11 +7,13 @@ CREATE TABLE person (
   person_name varchar(45) NOT NULL,
   contact_number varchar(45) NOT NULL,
   email_address varchar(45) NOT NULL,
-  age int(3) DEFAULT 0,
+  age int(3) DEFAULT '0',
   secure_password varchar(45) NOT NULL,
+  user_name varchar(45) NOT NULL,
   PRIMARY KEY (personid),
-  CHECK (age >= 18 AND age<=200)
-);
+  UNIQUE KEY user_name_UNIQUE (user_name)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE address (
   person_id int(10) unsigned NOT NULL,

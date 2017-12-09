@@ -25,6 +25,18 @@
 				<span ng-click="hc.removeFromCart(item)"class="glyphicon glyphicon-minus-sign" style="margin-left: auto; align-self: center; margin-right: 5px; cursor: pointer;"></span>
 				<span ng-click="hc.deleteFromCart(item)"class="glyphicon glyphicon-trash" style=" align-self: center; margin-right: 5px; cursor: pointer;"></span>
 			</div>
+			<span>Choose Delivery Option:</span>
+			 <select ng-model="hc.selectedDeliveryOption" ng-if="hc.shoppingCart.length>0">
+			 	<option ng-repeat="item in hc.deliveryOptions">{{item}}</option>
+			 </select>
+			 <span>Choose delievry address</span>
+			 <select ng-model="hc.selectedAddress">
+			 	<option ng-repeat="address in hc.addressOptions">{{address.address}}</option>
+			 </select>
+<!-- 			 </select>
+			 <select ng-options="array expression"></select>
+			 <select ng-options="array expression"></select>
+ -->
 		</div>		
 	</div>
 	<div class="display_flex flex_column" style="width: 60%; padding: 5px;">

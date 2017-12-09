@@ -15,14 +15,21 @@ public class Person {
     private Integer age =  0;
     @NotNull
     private String securePassword;
+    @NotNull
+    private String userName;
 
-    public Person(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword) {
+    public Person(Integer personId, String personName, String contactNumber, String emailAddress, Integer age, String securePassword, String userName) {
         this.personId = personId;
         this.personName = personName;
         this.contactNumber = contactNumber;
         this.emailAddress = emailAddress;
         this.age = age;
         this.securePassword = securePassword;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public Integer getPersonId() {
@@ -47,6 +54,10 @@ public class Person {
 
     public String getSecurePassword() {
         return securePassword;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setPersonId(Integer personId) {

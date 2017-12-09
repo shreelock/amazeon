@@ -4,6 +4,8 @@ import cse305.ecomm.representations.Address;
 import cse305.ecomm.representations.Inventory;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AmzDBSetupDAO {
     private Connection connect = null;
@@ -246,7 +248,7 @@ public class AmzDBSetupDAO {
         statement.executeUpdate(insertIntoAddr2);
     }
 
-    public Address getAddrFromPersonId(int personId) throws Exception {
+    public List<Address> getAddrFromPersonId(int personId) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         // Setup the connection with the DB
         connect = DriverManager
@@ -255,10 +257,11 @@ public class AmzDBSetupDAO {
         String query = "SELECT * FROM amazeon.address where person_id = " + personId + ";";
 
         ResultSet res = statement.executeQuery(query);
-        if(res.next()) {
+        List<Address> result= new ArrayList<Address>();
+        while(res.next()) {
             System.out.println(res);
-            return new Address(res.getInt(1), res.getString(3), res.getString(2));
+            result.add(new Address(res.getInt(1), res.getString(3), res.getString(2)));
         }
-        return new Address(0,"NULL", "NULLTyPE");
+        return result;
     }
 }
