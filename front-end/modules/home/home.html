@@ -17,7 +17,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="display_flex flex_column" style="height: 50%; border: 1px solid black;">
+		<div class="display_flex flex_column" style="height: 50%; border: 1px solid black; padding: 5px;">
 			<div ng-repeat="item in hc.shoppingCart" class="display_flex width_full" style="border-bottom: 1px solid black">
 				<a ng-click="hc.getItemInfo(item)" style="text-decoration: none; padding-left:5px; padding-right:5px; cursor: pointer; width: 20%;">{{item.itemName}}</a>
 				<a ng-click="" style="text-decoration: none; padding-right:5px; cursor: pointer; width: 20%;">{{item.sellerId}}</a>
@@ -25,14 +25,19 @@
 				<span ng-click="hc.removeFromCart(item)"class="glyphicon glyphicon-minus-sign" style="margin-left: auto; align-self: center; margin-right: 5px; cursor: pointer;"></span>
 				<span ng-click="hc.deleteFromCart(item)"class="glyphicon glyphicon-trash" style=" align-self: center; margin-right: 5px; cursor: pointer;"></span>
 			</div>
-			<span>Choose Delivery Option:</span>
+			<span ng-if="hc.shoppingCart.length>0">Choose Delivery Option:</span>
 			 <select ng-model="hc.selectedDeliveryOption" ng-if="hc.shoppingCart.length>0">
 			 	<option ng-repeat="item in hc.deliveryOptions">{{item}}</option>
 			 </select>
-			 <span>Choose delievry address</span>
-			 <select ng-model="hc.selectedAddress">
-			 	<option ng-repeat="address in hc.addressOptions">{{address.address}}</option>
+			 <span ng-if="hc.shoppingCart.length>0">Choose delievry address</span>
+			 <select ng-model="hc.selectedAddress" ng-if="hc.shoppingCart.length>0">
+			 	<option ng-repeat="address in hc.addressOptions">{{address.value}}</option>
 			 </select>
+			 <span ng-if="hc.shoppingCart.length>0">Choose payment option</span>
+			 <select ng-model="hc.selectedGateway" ng-if="hc.shoppingCart.length>0">
+			 	<option ng-repeat="item in hc.paymentGateWayOptions">{{item}}</option>
+			 </select>
+			 <button ng-if="hc.shoppingCart.length>0" type="button" class="btn btn-primary" ng-click="hc.placeOrder()" style="margin-top: 5px;">buy</button>
 <!-- 			 </select>
 			 <select ng-options="array expression"></select>
 			 <select ng-options="array expression"></select>

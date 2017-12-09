@@ -4,18 +4,18 @@ app.controller('homeCtrl', function($scope, $http) {
 	home.personInfo = $scope.personInfo;
 	home.shoppingCart = [];
     home.addressOptions = [];
-
+    home.paymentGateWayOptions = ["Visa", "Master Card", "American Express", "e-Wallet"];
     home.deliveryOptions = ["Free delivery", "Express delivery", "Prime delivery"];
     home.selectedDeliveryOption = '';
-
+    home.selectedAddress = '';
+    
     function getAddressByPersonID(){
         home.addressOptions = [];
         $http.get('http://localhost:8080/getaddr/'+home.personInfo.personId).
             then(function(response) {
                 console.log(response.data);
                 response.data.forEach(function(item){
-                    home.addressOptions['label'] = item.address;
-                    home.addressOptions['value'] = item.addrType;
+                    home.addressOptions.push({'label': item.address, 'value': item.addrType});
                 });
         },function myError(response) {
             console.log(response);
@@ -41,6 +41,8 @@ app.controller('homeCtrl', function($scope, $http) {
 
     refreshShoppingCart();
 
+
+
 	$http.get('http://localhost:8080/listItems/').
         then(function(response) {
         	console.log(response.data);
@@ -52,6 +54,10 @@ app.controller('homeCtrl', function($scope, $http) {
 	});
 
     home.itemInfo = {};
+
+    function getAllSeller(){
+        
+    }
 
     home.getItemInfo = function(item){
 		$http.get('http://localhost:8080/itemInfo/'+item.itemId).
