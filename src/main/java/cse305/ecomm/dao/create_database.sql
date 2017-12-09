@@ -145,13 +145,16 @@ CREATE TABLE Shipment (
   PRIMARY KEY (shipment_id)
 );
 
-CREATE TABLE order_table (
-  order_id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  customer_id int(10) unsigned DEFAULT NULL,
-  payment_id int(10) unsigned NOT NULL,
-  PRIMARY KEY (order_id),
-  CONSTRAINT fk_order_customer FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT fk_order_payment FOREIGN KEY (payment_id) REFERENCES payment (payment_id) ON DELETE NO ACTION ON UPDATE CASCADE
+CREATE TABLE `order_table` (
+  `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `customer_id` int(10) unsigned DEFAULT NULL,
+  `payment_id` int(10) unsigned NOT NULL,
+  `address_type` varchar(45) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `fk_order_customer` (`customer_id`),
+  KEY `fk_order_payment` (`payment_id`),
+  CONSTRAINT `fk_order_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_order_payment` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`payment_id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE order_details (
