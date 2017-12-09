@@ -82,11 +82,21 @@ public class ShoppingCartDAO {
 
 
         String order_details_insert_query;
-
         for (ShoppingCart sc : orderPageEntity.getCartItems()){
             order_details_insert_query = "INSERT INTO amazeon.order_details (order_id, shipment_id, item_id, seller_id, quantity) VALUES (" +generated_order_id+","+generated_shipemnt_id+","+sc.getItemId()+","+sc.getSellerId()+","+sc.getQuantity()+");";
             statement.executeUpdate(order_details_insert_query);
         }
+
+        String update_inventory_query;
+        String delete_shopping_cart_query;
+        for (ShoppingCart sc : orderPageEntity.getCartItems()){
+            update_inventory_query = "UPDATE amazeon.inventory SET quantity = quantity - "+sc.getQuantity()+" WHERE seller_id = "+sc.getSellerId()+" AND item_id = "+sc.getItemId()+";";
+            delete_shopping_cart_query = "DELETE FROM amazeon.shopping_cart WHERE customer_id = "+sc.getCustomerId()+" AND  seller_id = "+sc.getSellerId()+" AND item_id = "+sc.getItemId()+";";
+            statement.executeUpdate(update_inventory_query);
+            statement.executeUpdate(delete_shopping_cart_query);
+        }
+
+
         return true;
     }
 
