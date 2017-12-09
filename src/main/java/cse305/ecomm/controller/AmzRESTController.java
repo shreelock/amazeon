@@ -83,17 +83,6 @@ public class AmzRESTController {
 
     @PermitAll
     @GET
-    @Path("/listSeller")
-    public Response listSeller() throws Exception {
-        SellerDao dao = new SellerDao();
-        List<Seller> resp = dao.getSellerInfo();
-        System.out.println(resp);
-        return Response.ok(resp).build();
-    }
-
-
-    @PermitAll
-    @GET
     @Path("/itemInfo/{item_id}")
     public Response getItemInfo(@PathParam("item_id") Integer item_id) throws Exception {
 

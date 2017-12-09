@@ -8,6 +8,7 @@ app.controller('homeCtrl', function($scope, $http) {
     home.deliveryOptions = ["Free delivery", "Express delivery", "Prime delivery"];
     home.selectedDeliveryOption = '';
     home.selectedAddress = '';
+    home.selectedGateway = ''
     
     function getAddressByPersonID(){
         home.addressOptions = [];
@@ -43,21 +44,25 @@ app.controller('homeCtrl', function($scope, $http) {
 
 
 
-	$http.get('http://localhost:8080/listItems/').
-        then(function(response) {
-        	console.log(response.data);
-        	response.data.forEach(function(item){
-	        	home.itemData.push(item);
-        	});
-    },function myError(response) {
-    	console.log(response);
-	});
 
     home.itemInfo = {};
 
-    function getAllSeller(){
-        
+    function getAllItem(){
+        home.itemData=[];
+        $http.get('http://localhost:8080/listItems/').
+            then(function(response) {
+                console.log(response.data);
+                response.data.forEach(function(item){
+                    home.itemData.push(item);
+                });
+        },function myError(response) {
+            console.log(response);
+        });
+
     }
+
+    getAllItem();
+
 
     home.getItemInfo = function(item){
 		$http.get('http://localhost:8080/itemInfo/'+item.itemId).
@@ -126,6 +131,41 @@ app.controller('homeCtrl', function($scope, $http) {
 
     home.deleteFromCart = function(item){
     	console.log('delete api to be implemented', item);
+    }
+
+    function formPostData(){
+        data = {};
+        data.customer_id = home.personInfo.personId;
+        data.amount = 1500;
+        data.gateway = home.selectedGateway;
+        data.orderDate = "1994-02-19";
+        data.shipper_name = home.selectedDeliveryOption;
+        data.address_type = home.selectedAddress;
+        orderCart = [];
+        home.shoppingCart.forEach(function(item){
+            orderCart.push({customerId:home.personInfo.personId, itemId:item.itemId, sellerId:item.sellerId, quantity:item.quantity});
+        });
+
+        data.cartItems = orderCart;
+        return data;
+    }
+
+    home.placeOrder = function(){
+        data = formPostData();
+        var config = {
+                headers : {
+                    'Content-Type': 'application/json;'
+                }
+            };
+        console.log(data);
+        $http.post('http://localhost:8080/placeOrder1', data, config).then(function (response) {
+                refreshShoppingCart();
+                getAllItem();
+                console.log(response);
+            },function (error) {
+                console.log(error);
+            });
+
     }
 
 	/*home.itemData = [{"itemId":1,"sellerId":4,"itemName":"ITMNAME1","sellerName":"Adidas","quantity":12},
